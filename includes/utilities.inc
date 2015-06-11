@@ -100,8 +100,8 @@ function islandora_scholar_get_view(AbstractObject $object) {
   }
 
   if (isset($object['PDF']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['PDF'])) {
-    module_load_include('inc', 'metrodora', 'includes/utilities');
-    $stats = metrodora_get_stats_details($object, $object['PDF']);
+    module_load_include('inc', 'mlmlora', 'includes/utilities');
+    $stats = mlmlora_get_stats_details($object, $object['PDF']);
     $views = $stats[0];
     $downloads = $stats[1];
     $stat_output = $views."<br />".$downloads;
