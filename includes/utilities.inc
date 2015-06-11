@@ -30,6 +30,9 @@ function islandora_scholar_get_view(AbstractObject $object) {
     'preview' => array(
       '#weight' => $i++,
     ),
+    'download_stats' => array(
+      '#weight' => $i++,
+    ),
     'pdf_download' => array(
       '#weight' => $i++,
     ),
@@ -97,6 +100,17 @@ function islandora_scholar_get_view(AbstractObject $object) {
   }
 
   if (isset($object['PDF']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['PDF'])) {
+    module_load_include('inc', 'metrodora', 'includes/utilities');
+    $stats = metrodora_get_stats_details($object, $object['PDF']);
+    $views = $stats[0];
+    $downloads = $stats[1];
+    $stat_output = $views."<br />".$downloads;
+    $display['download_stats'] = array(
+      '#type' => 'item',
+      '#title' => t('Stats'),
+      '#markup' => $stat_output,
+      '#weight' => $display['download_stats']['#weight'],
+    );
     $display['pdf_download'] = array(
       '#type' => 'item',
       '#title' => t('Download'),
